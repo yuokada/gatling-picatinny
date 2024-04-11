@@ -12,6 +12,13 @@ object SimulationConfig {
   def getDurationParam(path: String): FiniteDuration = simulationConfig.get[FiniteDuration](path)
   def getBooleanParam(path: String): Boolean         = simulationConfig.get[Boolean](path)
 
+  def getStringParamWithOption(path: String, default: String): String = {
+    simulationConfig.getOpt[String](path) match {
+      case Some(v) => v
+      case None    => default
+    }
+  }
+
   lazy val baseUrl: String     = simulationConfig.get[String]("baseUrl")
   lazy val baseAuthUrl: String = simulationConfig.get[String]("baseAuthUrl")
   lazy val wsBaseUrl: String   = simulationConfig.get[String]("wsBaseUrl")
